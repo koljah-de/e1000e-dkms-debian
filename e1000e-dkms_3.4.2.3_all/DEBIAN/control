@@ -1,0 +1,9 @@
+Package: e1000e-dkms
+Version: 3.4.2.3
+Section: kernel
+Priority: optional
+Architecture: all
+Depends: dkms (>= 1.95)
+Maintainer: Kolja Hildebrand <kolja.hildebrand@gmail.com>
+Description: Intel e1000e Ethernet adapter driver (DKMS version)
+Homepage: http://sourceforge.net/projects/e1000/

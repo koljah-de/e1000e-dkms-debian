@@ -18,13 +18,13 @@ To build a deb package from source run:
 ---
 
 If you want to use the dkms kernel module only (works with all Linux distributions) run:
-* cp -r e1000e-dkms/usr/src/e1000e-<x.x.x.x> /usr/src/
-* dkms add /usr/src/e1000e-<x.x.x.x>
-* dkms build /usr/src/e1000e-<x.x.x.x>
-* dkms install /usr/src/e1000e-<x.x.x.x>
+* cp -r e1000e-dkms/usr/src/e1000e-<x.x.x.x> /usr/local/src/
+* dkms add /usr/local/src/e1000e-<x.x.x.x>
+* dkms build /usr/local/src/e1000e-<x.x.x.x>
+* dkms install /usr/local/src/e1000e-<x.x.x.x>
 
 To remove the dkms kernel module only (works with all Linux distributions) run:
-* dkms remove /usr/src/e1000e-<x.x.x.x> --all
+* dkms remove /usr/local/src/e1000e-<x.x.x.x> --all
 
 ---
 

@@ -6,6 +6,12 @@ This is a Debian dkms package version of the latest code of Intels e1000e ethern
 
 ---
 
+dep: dkms
+
+You should have installed: linux-headers-amd64 dkms build-essential 
+
+---
+
 To install the deb package run:
 * dpkg -i e1000e-dkms_<x.x.x.x>_all.deb
 

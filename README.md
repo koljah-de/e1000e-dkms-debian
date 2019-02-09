@@ -53,7 +53,7 @@ For further information visit:
 
 **Changelog for 3.4.2.3**
 * Fix build on newer kernels (4.18+)
-* Backport to upstream: Backport to upstream: 0bcd952fee(ethernet/intel: consolidate NAPI and NAPI exit)
+* Backport to upstream: Backport to upstream: 0bcd952fee (ethernet/intel: consolidate NAPI and NAPI exit)
 * Minor bug fixes
 
 **Changelog for 3.4.2.1**

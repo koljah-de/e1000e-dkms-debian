@@ -7,7 +7,7 @@ This is a Debian dkms package version of the latest code of Intels e1000e ethern
 ---
 
 ## Preparation
-Dependency: dkms
+**Dependency:** dkms
 
 You should have installed: linux-headers-amd64 dkms build-essential
 * apt install linux-headers-amd64 dkms build-essential
@@ -117,11 +117,11 @@ Once an 82579 device is attached to a VM, stop the VM and return the ownership t
 * Fix build on SLES12, RHEL 7.2
 * Fix builds on newer kernels
 
-**ChangeLog for 3.1.0**
+**Changelog for 3.1.0**
 * Fix - Compile on Ubuntu 14.04
 * Fix - Makefile for newer kernels with 1588 clock unconfigured
 
-**ChangeLog for 3.1.0**
+**Changelog for 3.1.0**
 * Fix - ethtool register tests updated for new code
 * Cleanup - update function calls to new non-deprecated versions
 * Fix - Runtime PM interfering with EEE in Sx states
@@ -141,11 +141,11 @@ Once an 82579 device is attached to a VM, stop the VM and return the ownership t
 * NOTE - due to a backporting issue, there is a problem compiling this driver
 	under Ubuntu 14.04.
 
-**ChangeLog for 3.0.4.1**
+**Changelog for 3.0.4.1**
 * Workaround - packet loss when exiting K1 on 82579 parts
 * Fix - 32 bit DMA mask handling
 
-**ChangeLog for 3.0.4**
+**Changelog for 3.0.4**
 * Compat - Compile issue on RHEL 6.5
 * Fix - Verify PTP register reads on 82574/82583 parts
 * Fix - Add lock to PTP register writes to prevent concurrent access

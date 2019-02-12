@@ -1,8 +1,8 @@
-# Intel e1000e ethernet adapter driver (dkms version) for Debian
+# Intel e1000e ethernet adapter driver (DKMS version) for Debian
 
 __Intel® Network Adapter Driver for PCIe* Intel® Gigabit Ethernet Network Connections Under Linux*__
 
-This is a Debian dkms package version of the latest code of Intels e1000e ethernet driver available from https://sourceforge.net/projects/e1000/
+This is a Debian DKMS package version of the latest code of Intels e1000e ethernet driver available from https://sourceforge.net/projects/e1000/
 
 ---
 

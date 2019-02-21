@@ -35,9 +35,9 @@ dpkg-deb --build e1000e-dkms
 
 ---
 
-## Install and build the dkms kernel module only
+## Install and build the DKMS kernel module only
 
-If you want to use the dkms kernel module only (works with all Linux distributions) run:
+If you want to use the DKMS kernel module only (works with all Linux distributions) run:
 ```
 cp -r e1000e-dkms/usr/src/e1000e-<x.x.x.x> /usr/src/
 dkms add -m e1000e -v <x.x.x.x>
@@ -45,7 +45,7 @@ dkms build -m e1000e -v <x.x.x.x>
 dkms install -m e1000e -v <x.x.x.x>
 ```
 
-To remove the dkms kernel module only (works with all Linux distributions) run:
+To remove the DKMS kernel module only (works with all Linux distributions) run:
 ```
 dkms remove -m e1000e -v <x.x.x.x> --all
 ```

@@ -6,7 +6,7 @@ This is a Debian DKMS package version of the latest code of Intels e1000e ethern
 
 ---
 
-## Preparation
+## Prerequisites
 **Dependency:** dkms
 
 You should have installed: linux-headers dkms build-essential

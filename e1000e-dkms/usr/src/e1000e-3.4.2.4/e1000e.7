@@ -164,7 +164,7 @@ Strip the CRC from received packets before sending up the network stack. If
 you have a machine with a BMC enabled but cannot receive IPMI traffic after
 loading or enabling the driver, try disabling this feature.
 .LP
-.B EEE
+.B EEE (Energy Efficient Ethernet)
 .IP
 .B Valid Range: 0-1
 .IP
@@ -172,12 +172,16 @@ loading or enabling the driver, try disabling this feature.
 .IP
 1 = Enables EEE
 .IP
-A link between two EEE-compliant devices will result in periodic bursts of data followed by periods where the link is in an idle state. This Low Power Idle (LPI) state is supported in both 1 Gbps and 100 Mbps link speeds.
+A link between two EEE-compliant devices will result in periodic bursts of data followed by periods where the link is in an idle state. This Low Power Idle (LPI) state is supported at 1 Gbps and 100 Mbps link speeds.
 
 NOTES:
 - EEE support requires auto-negotiation.
 - Both link partners must support EEE.
 - EEE is not supported on all Intel(R) Ethernet Network devices or at all link speeds.
+
+Example:
+ethtool --show-eee devname
+ethtool --set-eee devname [eee on|off]
 .LP
 .B Node
 .IP

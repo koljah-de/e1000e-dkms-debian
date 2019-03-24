@@ -4,6 +4,7 @@
 #ifndef _E1000E_REGS_H_
 #define _E1000E_REGS_H_
 
+/* General Register Descriptions */
 #define E1000_CTRL	0x00000	/* Device Control - RW */
 #define E1000_STATUS	0x00008	/* Device Status - RO */
 #define E1000_EECD	0x00010	/* EEPROM/Flash Control - RW */
@@ -71,7 +72,6 @@
 #define E1000_RADV	0x0282C	/* Rx Interrupt Absolute Delay Timer - RW */
 #define E1000_MMDAC			13	/* MMD Access Control */
 #define E1000_MMDAAD			14	/* MMD Access Address/Data */
-
 /* Convenience macros
  *
  * Note: "_n" is the queue number of the register to be written to.
@@ -109,6 +109,7 @@
 				 (0x054E0 + ((_i - 16) * 8)))
 #define E1000_RAH(_i)		(((_i) <= 15) ? (0x05404 + ((_i) * 8)) : \
 				 (0x054E4 + ((_i - 16) * 8)))
+
 #define E1000_SHRAL(_i)		(0x05438 + ((_i) * 8))
 #define E1000_SHRAH(_i)		(0x0543C + ((_i) * 8))
 #define E1000_TDFH		0x03410	/* Tx Data FIFO Head - RW */
@@ -118,6 +119,7 @@
 #define E1000_TDFPC		0x03430	/* Tx Data FIFO Packet Count - RW */
 #define E1000_TIDV	0x03820	/* Tx Interrupt Delay Value - RW */
 #define E1000_TADV	0x0382C	/* Tx Interrupt Absolute Delay Val - RW */
+/* Statistics Register Descriptions */
 #define E1000_CRCERRS	0x04000	/* CRC Error Count - R/clr */
 #define E1000_ALGNERRC	0x04004	/* Alignment Error Count - R/clr */
 #define E1000_SYMERRS	0x04008	/* Symbol Error Count - R/clr */
@@ -177,6 +179,7 @@
 #define E1000_TSCTC	0x040F8	/* TCP Segmentation Context Tx - R/clr */
 #define E1000_TSCTFC	0x040FC	/* TCP Segmentation Context Tx Fail - R/clr */
 #define E1000_IAC	0x04100	/* Interrupt Assertion Count */
+/* Interrupt Cause */
 #define E1000_ICRXPTC	0x04104	/* Interrupt Cause Rx Pkt Timer Expire Count */
 #define E1000_ICRXATC	0x04108	/* Interrupt Cause Rx Abs Timer Expire Count */
 #define E1000_ICTXPTC	0x0410C	/* Interrupt Cause Tx Pkt Timer Expire Count */
@@ -199,6 +202,7 @@
 #define E1000_WUC	0x05800	/* Wakeup Control - RW */
 #define E1000_WUFC	0x05808	/* Wakeup Filter Control - RW */
 #define E1000_WUS	0x05810	/* Wakeup Status - RO */
+/* Management registers */
 #define E1000_MANC	0x05820	/* Management Control - RW */
 #define E1000_FFLT	0x05F00	/* Flexible Filter Length Table - RW Array */
 #define E1000_HOST_IF	0x08800	/* Host Interface */
@@ -208,9 +212,11 @@
 /* Management Decision Filters */
 #define E1000_MDEF(_n)		(0x05890 + (4 * (_n)))
 #define E1000_SW_FW_SYNC	0x05B5C	/* SW-FW Synchronization - RW */
+/* PCIe Register Description */
 #define E1000_GCR	0x05B00	/* PCI-Ex Control */
 #define E1000_GCR2	0x05B64	/* PCI-Ex Control #2 */
-#define E1000_FACTPS	0x05B30	/* Function Active and Power State to MNG */
+/* Function Active and Power State to MNG */
+#define E1000_FACTPS	0x05B30
 #define E1000_SWSM	0x05B50	/* SW Semaphore */
 #define E1000_FWSM	0x05B54	/* FW Semaphore */
 /* Driver-only SW semaphore (not used by BOOT agents) */
@@ -220,8 +226,10 @@
 
 /* RSS registers */
 #define E1000_MRQC	0x05818	/* Multiple Receive Control - RW */
-#define E1000_RETA(_i)	(0x05C00 + ((_i) * 4))	/* Redirection Table - RW */
-#define E1000_RSSRK(_i)	(0x05C80 + ((_i) * 4))	/* RSS Random Key - RW */
+/* Redirection Table - RW Array */
+#define E1000_RETA(_i)	(0x05C00 + ((_i) * 4))
+/* RSS Random Key - RW Array */
+#define E1000_RSSRK(_i)	(0x05C80 + ((_i) * 4))
 #define E1000_TSYNCRXCTL	0x0B620	/* Rx Time Sync Control register - RW */
 #define E1000_TSYNCTXCTL	0x0B614	/* Tx Time Sync Control register - RW */
 #define E1000_RXSTMPL	0x0B624	/* Rx timestamp Low - RO */

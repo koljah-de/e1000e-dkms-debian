@@ -35,7 +35,7 @@
 #define DRV_EXTRAVERSION ""
 #endif
 
-#define DRV_VERSION "3.4.2.3" DRV_EXTRAVERSION
+#define DRV_VERSION "3.4.2.4" DRV_EXTRAVERSION
 char e1000e_driver_name[] = "e1000e";
 const char e1000e_driver_version[] = DRV_VERSION;
 

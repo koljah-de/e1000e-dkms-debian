@@ -63,6 +63,10 @@ For further information visit:
 
 ## Changelog
 
+**Changelog for 3.4.2.4**
+* Fix build on newer kernels (4.19+) 
+* Backport to upstream: fb052fdd26 (e1000e: use new API ethtool_{get|set}_link_ksettings)
+
 **Changelog for 3.4.2.3**
 * Fix build on newer kernels (4.18+)
 * Backport to upstream: Backport to upstream: 0bcd952fee (ethernet/intel: consolidate NAPI and NAPI exit)

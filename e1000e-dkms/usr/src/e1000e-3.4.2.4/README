@@ -2,7 +2,7 @@ e1000e Linux* Base Driver for Intel(R) Network Connection
 
 =========================================================
 
-November 11, 2016
+May 15, 2019
 
 =====================
 
@@ -32,17 +32,13 @@ drivers.
 For questions related to hardware requirements, refer to the documentation
 supplied with your Intel adapter. All hardware requirements listed apply to use
 with Linux.
-
-Adapter teaming is implemented using the native Linux Channel bonding module.
-This is included in supported Linux kernels. Channel Bonding documentation can
-be found in the Linux kernel source:
-/documentation/networking/bonding.txt
-
 The driver information previously displayed in the /proc file system is not
 supported in this release.
 
 NOTE: The Intel(R) 82562v 10/100 Network Connection only provides 10/100
 support.
+
+This driver no longer supports Itanium(R)-based systems.
 
 
 Upgrading
@@ -519,8 +515,8 @@ Software Issues
 NOTE: After installing the driver, if your Intel Ethernet Network Connection
 is not working, verify that you have installed the correct driver.
 
-Intel(R) Active Management Technology 2.0, 2.1, 2.5 Not Supported in
-Conjunction with Linux driver.
+Intel(R) Active Management Technology 2.0, 2.1, 2.5 are not supported in
+conjunction with the linux driver.
 
 
 Detected Tx Unit Hang in Quad Port Adapters
@@ -763,7 +759,7 @@ St - Fifth Floor, Boston, MA 02110-1301 USA.
 The full GNU General Public License is included in this distribution in the
 file called "COPYING".
 
-Copyright(c) 1999 - 2016 Intel Corporation.
+Copyright(c) 1999 - 2019 Intel Corporation.
 Trademarks
 ----------
 Intel and Itanium are trademarks or registered trademarks of Intel Corporation

@@ -1,5 +1,5 @@
 12529    18 COPYING
-01063    12 e1000e.7
+32318    12 e1000e.7
 25886    10 e1000e.spec
 42490     3 src/80003es2lan.h
 13811     4 src/base.h
@@ -32,4 +32,4 @@
 01092    16 src/param.c
 60687    10 src/phy.h
 44976     5 pci.updates
-28058    31 README
+17799    30 README

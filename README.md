@@ -63,6 +63,9 @@ For further information visit:
 
 ## Changelog
 
+**Changelog for 3.4.2.4s**
+* EOL Itanium support
+
 **Changelog for 3.4.2.4**
 * Fix build on newer kernels (4.19+) 
 * Backport to upstream: fb052fdd26 (e1000e: use new API ethtool_{get|set}_link_ksettings)

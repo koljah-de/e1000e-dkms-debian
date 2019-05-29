@@ -1,9 +1,8 @@
-b855ee83a6f76ada4b2be3e4b1b78273  usr/src/e1000e-3.4.2.4/e1000e.spec
 54ced9c5937ecdb75f4d9f1d2ef3538b  usr/src/e1000e-3.4.2.4/pci.updates
 e5e451bb92fb1f86432caff02d0359ee  usr/src/e1000e-3.4.2.4/dkms.conf
-fc9b55a6303f7546b439158762c0c3eb  usr/src/e1000e-3.4.2.4/e1000e.7
-7dae04b95cb71521d40e6701b6a78cdb  usr/src/e1000e-3.4.2.4/SUMS
-619e0c3e85759bb5807433960c6ab8be  usr/src/e1000e-3.4.2.4/README
+8e521454406701be0f22453486ba2349  usr/src/e1000e-3.4.2.4/e1000e.7
+d46aff7ad20f6c4ce6c9854a75059494  usr/src/e1000e-3.4.2.4/SUMS
+0bb0ad1f3b337bc3e129a56efbc7c5d3  usr/src/e1000e-3.4.2.4/README
 a216b4192dc6b777b6f0db560e9a8417  usr/src/e1000e-3.4.2.4/COPYING
 e164ad7cb34b700fa840615b057af713  usr/src/e1000e-3.4.2.4/src/defines.h
 96f8c0c50a4b53aec02224d112e5fdd8  usr/src/e1000e-3.4.2.4/src/e1000.h

@@ -2,6 +2,8 @@
 /* Copyright(c) 1999 - 2019 Intel Corporation. */
 
 #include "e1000.h"
+#include "manage.h"
+
 /**
  *  e1000_calculate_checksum - Calculate checksum for buffer
  *  @buffer: pointer to EEPROM

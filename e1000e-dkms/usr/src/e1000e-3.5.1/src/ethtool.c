@@ -1253,7 +1253,6 @@ static int e1000_reg_test(struct e1000_adapter *adapter, u64 *data)
 	case e1000_pch2lan:
 	case e1000_pch_lpt:
 	case e1000_pch_spt:
-		/* fall through */
 	case e1000_pch_cnp:
 		mask |= BIT(18);
 		break;

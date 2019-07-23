@@ -1254,6 +1254,7 @@ out:
 static s32 e1000_disable_ulp_lpt_lp(struct e1000_hw *hw, bool force)
 {
 	s32 ret_val = 0;
+	u8 ulp_exit_timeout = 30;
 	u32 mac_reg;
 	u16 phy_reg;
 	int i = 0;
@@ -1275,9 +1276,11 @@ static s32 e1000_disable_ulp_lpt_lp(struct e1000_hw *hw, bool force)
 			ew32(H2ME, mac_reg);
 		}
 
-		/* Poll up to 300msec for ME to clear ULP_CFG_DONE. */
+		if (hw->mac.type == e1000_pch_cnp)
+			ulp_exit_timeout = 100;
+
 		while (er32(FWSM) & E1000_FWSM_ULP_CFG_DONE) {
-			if (i++ == 30) {
+			if (i++ == ulp_exit_timeout) {
 				ret_val = -E1000_ERR_PHY;
 				goto out;
 			}

@@ -9,7 +9,7 @@ FAMILYH = 82571.h ich8lan.h 80003es2lan.h
 # core driver files
 CFILES = netdev.c ethtool.c param.c $(FAMILYC) \
          mac.c nvm.c phy.c manage.c kcompat.c
-HFILES = e1000.h hw.h regs.h defines.h \
+HFILES = e1000.h hw.h regs.h defines.h  \
          mac.h nvm.h phy.h manage.h $(FAMILYH) kcompat.h
 ifeq (,$(BUILD_KERNEL))
 BUILD_KERNEL=$(shell uname -r)

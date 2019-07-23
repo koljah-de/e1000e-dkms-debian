@@ -6,6 +6,12 @@
 #             (numerical order).
 #
 8086  Intel Corporation
+	0d4c  Ethernet Connection (11) I219-LM
+	0d4d  Ethernet Connection (11) I219-V
+	0d4e  Ethernet Connection (10) I219-LM
+	0d4f  Ethernet Connection (10) I219-V
+	0d53  Ethernet Connection (12) I219-LM
+	0d55  Ethernet Connection (12) I219-V
 	1049  82566MM Gigabit Network Connection
 	104a  82566DM Gigabit Network Connection
 	104b  82566DC Gigabit Network Connection
@@ -105,5 +111,9 @@
 	15d6  Ethernet Connection (5) I219-V
 	15d7  Ethernet Connection (4) I219-LM
 	15d8  Ethernet Connection (4) I219-V
+	15df  Ethernet Connection (8) I219-LM
+	15e0  Ethernet Connection (8) I219-V
+	15e1  Ethernet Connection (9) I219-LM
+	15e2  Ethernet Connection (9) I219-V
 	15e3  Ethernet Connection (5) I219-LM
 	294c  82566DC-2 Gigabit Network Connection

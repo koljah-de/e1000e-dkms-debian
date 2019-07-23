@@ -1826,7 +1826,8 @@ void __kc_skb_complete_tx_timestamp(struct sk_buff *skb,
 #include <linux/sctp.h>
 #endif
 
-unsigned int __kc_eth_get_headlen(unsigned char *data, unsigned int max_len)
+u32 __kc_eth_get_headlen(const struct net_device __always_unused *dev,
+			 unsigned char *data, unsigned int max_len)
 {
 	union {
 		unsigned char *network;
@@ -2303,6 +2304,30 @@ void flow_rule_match_enc_keyid(const struct flow_rule *rule,
 			       struct flow_match_enc_keyid *out)
 {
 	FLOW_DISSECTOR_MATCH(rule, FLOW_DISSECTOR_KEY_ENC_KEYID, out);
+}
+
+void flow_rule_match_enc_ports(const struct flow_rule *rule,
+			       struct flow_match_ports *out)
+{
+	FLOW_DISSECTOR_MATCH(rule, FLOW_DISSECTOR_KEY_ENC_PORTS, out);
+}
+
+void flow_rule_match_enc_control(const struct flow_rule *rule,
+				 struct flow_match_control *out)
+{
+	FLOW_DISSECTOR_MATCH(rule, FLOW_DISSECTOR_KEY_ENC_CONTROL, out);
+}
+
+void flow_rule_match_enc_ipv4_addrs(const struct flow_rule *rule,
+				    struct flow_match_ipv4_addrs *out)
+{
+	FLOW_DISSECTOR_MATCH(rule, FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS, out);
+}
+
+void flow_rule_match_enc_ipv6_addrs(const struct flow_rule *rule,
+				    struct flow_match_ipv6_addrs *out)
+{
+	FLOW_DISSECTOR_MATCH(rule, FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS, out);
 }
 #endif
 

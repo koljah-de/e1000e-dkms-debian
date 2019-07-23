@@ -46,11 +46,6 @@ increased CPU utilization, though it may help throughput in some circumstances.
   and may improve small packet latency. However, this is generally not
   suitable for bulk throughput traffic due to the increased CPU utilization
   of the higher interrupt rate.
-  NOTES:
-  - On 82599, and X540, and X550-based adapters, disabling InterruptThrottleRate
-    will also result in the driver disabling HW RSC.
-  - On 82598-based adapters, disabling InterruptThrottleRate will also
-    result in disabling LRO (Large Receive Offloads).
 .IP
 1 = Setting InterruptThrottleRate to Dynamic mode attempts to moderate
   interrupts per vector while maintaining very low latency. This can
@@ -202,12 +197,12 @@ allocated causing slower memory access and impacting throughput, CPU, or both.
 .LP
 Jumbo Frames support is enabled by changing the Maximum Transmission Unit (MTU) to a value larger than the default value of 1500.
 
-Use the ifconfig command to increase the MTU size. For example, enter the following where <x> is the interface number:
+Use the ifconfig command to increase the MTU size. For example, enter the following where X is the interface number:
 
-   ifconfig eth<x> mtu 9000 up
+   ifconfig ethX mtu 9000 up
 Alternatively, you can use the ip command as follows:
-   ip link set mtu 9000 dev eth<x>
-   ip link set up dev eth<x>
+   ip link set mtu 9000 dev ethX
+   ip link set up dev ethX
 
 .LP
 NOTE: The maximum MTU setting for Jumbo Frames is 8996. This value coincides with the maximum Jumbo Frames size of 9018 bytes.
@@ -219,7 +214,7 @@ See the section "Jumbo Frames" in the Readme.
 .SH ethtool
 .LP
 The driver utilizes the ethtool interface for driver configuration and diagnostics, as well as displaying statistical information. The latest ethtool version is required for this functionality. Download it at:
-http://ftp.kernel.org/pub/software/network/ethtool/
+https://kernel.org/pub/software/network/ethtool/
 
 
 .SH SPEED AND DUPLEX SETTINGS
@@ -229,7 +224,10 @@ In the default mode, an Intel(R) Ethernet Network Adapter using copper connectio
 
 Speed, duplex, and autonegotiation advertising are configured through the ethtool* utility. ethtool is included with all versions of Red Hat after Red Hat 7.2. For the latest version, download and install ethtool from the following website:
 
-   http://ftp.kernel.org/pub/software/network/ethtool/
+   https://kernel.org/pub/software/network/ethtool/
+
+To see the speed configurations your device supports, run the following:
+   ethtool ethX
 
 Caution: Only experienced network administrators should force speed and duplex or change autonegotiation advertising manually. The settings at the switch must always match the adapter settings. Adapter performance may suffer or your adapter may not operate if you configure the adapter differently from your switch.
 

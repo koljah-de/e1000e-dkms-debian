@@ -25,6 +25,7 @@ s32 e1000e_led_on_generic(struct e1000_hw *hw);
 s32 e1000e_led_off_generic(struct e1000_hw *hw);
 void e1000e_update_mc_addr_list_generic(struct e1000_hw *hw,
 					u8 *mc_addr_list, u32 mc_addr_count);
+int e1000e_rar_set_generic(struct e1000_hw *hw, u8 *addr, u32 index);
 s32 e1000e_set_fc_watermarks(struct e1000_hw *hw);
 s32 e1000e_setup_fiber_serdes_link(struct e1000_hw *hw);
 s32 e1000e_setup_led_generic(struct e1000_hw *hw);

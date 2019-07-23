@@ -24,7 +24,6 @@ This driver supports kernel versions 2.4.x, 2.6.x and later.
 Driver information can be obtained using ethtool, lspci, and ifconfig.
 Instructions on updating ethtool can be found in the section Additional
 Configurations later in this document.
-
 This driver is only supported as a loadable module at this time. Intel is not
 supplying patches against the kernel source to allow for static linking of the
 drivers.
@@ -32,8 +31,10 @@ drivers.
 For questions related to hardware requirements, refer to the documentation
 supplied with your Intel adapter. All hardware requirements listed apply to use
 with Linux.
+
 The driver information previously displayed in the /proc file system is not
 supported in this release.
+
 
 NOTE: The Intel(R) 82562v 10/100 Network Connection only provides 10/100
 support.
@@ -163,11 +164,6 @@ increased CPU utilization, though it may help throughput in some circumstances.
   and may improve small packet latency. However, this is generally not
   suitable for bulk throughput traffic due to the increased CPU utilization
   of the higher interrupt rate.
-  NOTES:
-  - On 82599, and X540, and X550-based adapters, disabling InterruptThrottleRate
-    will also result in the driver disabling HW RSC.
-  - On 82598-based adapters, disabling InterruptThrottleRate will also
-    result in disabling LRO (Large Receive Offloads).
 1 = Setting InterruptThrottleRate to Dynamic mode attempts to moderate
   interrupts per vector while maintaining very low latency. This can
   sometimes cause extra CPU utilization. If planning on deploying e1000e
@@ -367,16 +363,16 @@ Jumbo Frames support is enabled by changing the Maximum Transmission Unit (MTU)
 to a value larger than the default value of 1500.
 
 Use the ifconfig command to increase the MTU size. For example, enter the
-following where <x> is the interface number:
+following where X is the interface number:
 
-   ifconfig eth<x> mtu 9000 up
+   ifconfig ethX mtu 9000 up
 Alternatively, you can use the ip command as follows:
-   ip link set mtu 9000 dev eth<x>
-   ip link set up dev eth<x>
+   ip link set mtu 9000 dev ethX
+   ip link set up dev ethX
 
 This setting is not saved across reboots. The setting change can be made
 permanent by adding 'MTU=9000' to the file:
-/etc/sysconfig/network-scripts/ifcfg-eth<x> for RHEL or to the file
+/etc/sysconfig/network-scripts/ifcfg-ethX for RHEL or to the file
 /etc/sysconfig/network/<config_file> for SLES.
 
 NOTE: The maximum MTU setting for Jumbo Frames is 8996. This value coincides
@@ -419,7 +415,7 @@ ethtool
 The driver utilizes the ethtool interface for driver configuration and
 diagnostics, as well as displaying statistical information. The latest ethtool
 version is required for this functionality. Download it at:
-http://ftp.kernel.org/pub/software/network/ethtool/
+https://kernel.org/pub/software/network/ethtool/
 
 NOTE: When validating enable/disable tests on some parts (for example, 82578),
 it is necessary to add a few seconds between tests when working with ethtool.
@@ -446,7 +442,10 @@ ethtool* utility. ethtool is included with all versions of Red Hat after Red
 Hat 7.2. For the latest version, download and install ethtool from the
 following website:
 
-   http://ftp.kernel.org/pub/software/network/ethtool/
+   https://kernel.org/pub/software/network/ethtool/
+
+To see the speed configurations your device supports, run the following:
+   ethtool ethX
 
 Caution: Only experienced network administrators should force speed and duplex
 or change autonegotiation advertising manually. The settings at the switch must
@@ -464,7 +463,7 @@ Enabling Wake on LAN* (WoL)
 WoL is configured through the ethtool* utility. ethtool is included with all
 versions of Red Hat after Red Hat 7.2. For other Linux distributions, download
 and install ethtool from the following website:
-http://ftp.kernel.org/pub/software/network/ethtool/.
+https://kernel.org/pub/software/network/ethtool/.
 
 For instructions on enabling WoL with ethtool, refer to the website listed
 above.
@@ -499,7 +498,6 @@ Known Issues/Troubleshooting
 
 Hardware Issues
 ---------------
-
 For known hardware and troubleshooting issues, either refer to the "Release
 Notes" in your User Guide, or for more detailed information, go to
 http://www.intel.com.
@@ -511,7 +509,6 @@ information on known hardware issues.
 
 Software Issues
 ---------------
-
 NOTE: After installing the driver, if your Intel Ethernet Network Connection
 is not working, verify that you have installed the correct driver.
 

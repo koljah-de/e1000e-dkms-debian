@@ -70,6 +70,11 @@
 /* Split and Replication Rx Control - RW */
 #define E1000_RDTR	0x02820	/* Rx Delay Timer - RW */
 #define E1000_RADV	0x0282C	/* Rx Interrupt Absolute Delay Timer - RW */
+#define E1000_EEC_REG		0x12010
+
+#define E1000_SHADOWINF		0x12068
+#define E1000_FLFWUPDATE	0x12108
+
 #define E1000_MMDAC			13	/* MMD Access Control */
 #define E1000_MMDAAD			14	/* MMD Access Address/Data */
 /* Convenience macros

@@ -82,6 +82,16 @@ struct e1000_hw;
 #define E1000_DEV_ID_PCH_CNP_I219_V6		0x15BE
 #define E1000_DEV_ID_PCH_CNP_I219_LM7		0x15BB
 #define E1000_DEV_ID_PCH_CNP_I219_V7		0x15BC
+#define E1000_DEV_ID_PCH_ICP_I219_LM8		0x15DF
+#define E1000_DEV_ID_PCH_ICP_I219_V8		0x15E0
+#define E1000_DEV_ID_PCH_ICP_I219_LM9		0x15E1
+#define E1000_DEV_ID_PCH_ICP_I219_V9		0x15E2
+#define E1000_DEV_ID_PCH_CMP_I219_LM10		0x0D4E
+#define E1000_DEV_ID_PCH_CMP_I219_V10		0x0D4F
+#define E1000_DEV_ID_PCH_CMP_I219_LM11		0x0D4C
+#define E1000_DEV_ID_PCH_CMP_I219_V11		0x0D4D
+#define E1000_DEV_ID_PCH_CMP_I219_LM12		0x0D53
+#define E1000_DEV_ID_PCH_CMP_I219_V12		0x0D55
 
 #define E1000_REVISION_4	4
 
@@ -143,6 +153,26 @@ enum e1000_phy_type {
 	e1000_phy_82577,
 	e1000_phy_82579,
 	e1000_phy_i217,
+};
+
+enum e1000_bus_type {
+	e1000_bus_type_unknown = 0,
+	e1000_bus_type_pci,
+	e1000_bus_type_pcix,
+	e1000_bus_type_pci_express,
+	e1000_bus_type_reserved
+};
+
+enum e1000_bus_speed {
+	e1000_bus_speed_unknown = 0,
+	e1000_bus_speed_33,
+	e1000_bus_speed_66,
+	e1000_bus_speed_100,
+	e1000_bus_speed_120,
+	e1000_bus_speed_133,
+	e1000_bus_speed_2500,
+	e1000_bus_speed_5000,
+	e1000_bus_speed_reserved
 };
 
 enum e1000_bus_width {
@@ -625,6 +655,8 @@ struct e1000_nvm_info {
 };
 
 struct e1000_bus_info {
+	enum e1000_bus_type type;
+	enum e1000_bus_speed speed;
 	enum e1000_bus_width width;
 
 	u16 func;
@@ -704,6 +736,5 @@ struct e1000_hw {
 #include "82571.h"
 #include "80003es2lan.h"
 #include "ich8lan.h"
-#include "base.h"
 
 #endif

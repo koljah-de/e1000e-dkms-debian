@@ -63,6 +63,19 @@ For further information visit:
 
 ## Changelog
 
+**Changelog for 3.5.1**
+* Fix build on newer kernels (4.19+)
+* Backport to upstream: e1f65b0d70(e1000e: allow non-monotonic SYSTIM readings)
+* Initial support for the following devices:
+  * Ethernet Connection (11) I219-LM
+  * Ethernet Connection (11) I219-V
+  * Ethernet Connection (12) I219-LM
+  * Ethernet Connection (12) I219-V
+* Added support for PCIm function state:
+  * Due to commit: 5d8682588605 ("[misc] mei: me: allow runtime pm for platform with D0i3")
+  * When disconnecting the cable and reconnecting it, the NIC enters DMoff state. This caused wrong link indication and duplex mismatch. This bug is decribed in: https://bugzilla.redhat.com/show_bug.cgi?id=1689436
+  * Checking PCIm function state and performing PHY reset in watchdog task solves this issue.
+
 **Changelog for 3.4.2.4s**
 * EOL Itanium support
 
@@ -157,8 +170,7 @@ Once an 82579 device is attached to a VM, stop the VM and return the ownership t
 * Fix - include VLAN_HEADER in MTU calculation when changing MTU
 * Fix - make more intelligent choices when grabbing address registers on ME platforms
 * Add - send notification and handle case when programming address register fails
-* NOTE - due to a backporting issue, there is a problem compiling this driver
-	under Ubuntu 14.04.
+* NOTE - due to a backporting issue, there is a problem compiling this driver under Ubuntu 14.04.
 
 **Changelog for 3.0.4.1**
 * Workaround - packet loss when exiting K1 on 82579 parts

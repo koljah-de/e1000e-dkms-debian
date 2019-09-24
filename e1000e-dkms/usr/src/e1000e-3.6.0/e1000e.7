@@ -166,6 +166,7 @@ loading or enabling the driver, try disabling this feature.
 .IP
 1 = Enables EEE
 .IP
+
 A link between two EEE-compliant devices will result in periodic bursts of data followed by periods where the link is in an idle state. This Low Power Idle (LPI) state is supported at 1 Gbps and 100 Mbps link speeds.
 
 NOTES:
@@ -174,8 +175,9 @@ NOTES:
 - EEE is not supported on all Intel(R) Ethernet Network devices or at all link speeds.
 
 Example:
-ethtool --show-eee devname
-ethtool --set-eee devname [eee on|off]
+
+# ethtool --show-eee devname
+# ethtool --set-eee devname [eee on|off]
 .LP
 .B Node
 .IP
@@ -199,10 +201,12 @@ Jumbo Frames support is enabled by changing the Maximum Transmission Unit (MTU) 
 
 Use the ifconfig command to increase the MTU size. For example, enter the following where X is the interface number:
 
-   ifconfig ethX mtu 9000 up
+# ifconfig ethX mtu 9000 up
+
 Alternatively, you can use the ip command as follows:
-   ip link set mtu 9000 dev ethX
-   ip link set up dev ethX
+
+# ip link set mtu 9000 dev ethX
+# ip link set up dev ethX
 
 .LP
 NOTE: The maximum MTU setting for Jumbo Frames is 8996. This value coincides with the maximum Jumbo Frames size of 9018 bytes.
@@ -227,7 +231,8 @@ Speed, duplex, and autonegotiation advertising are configured through the ethtoo
    https://kernel.org/pub/software/network/ethtool/
 
 To see the speed configurations your device supports, run the following:
-   ethtool ethX
+
+# ethtool ethX
 
 Caution: Only experienced network administrators should force speed and duplex or change autonegotiation advertising manually. The settings at the switch must always match the adapter settings. Adapter performance may suffer or your adapter may not operate if you configure the adapter differently from your switch.
 

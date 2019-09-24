@@ -63,6 +63,12 @@ For further information visit:
 
 ## Changelog
 
+**Changelog for 3.6.0**
+* Added support to S0ix system state
+* Backport to upstream commit: fb24ea52f78e0d595852e09e3a55697c8f442189:
+  * Remove explicit invocations of mmiowb()
+* Cosmetic changes in the compilation process
+
 **Changelog for 3.5.1**
 * Fix build on newer kernels (4.19+)
 * Backport to upstream: e1f65b0d70(e1000e: allow non-monotonic SYSTIM readings)

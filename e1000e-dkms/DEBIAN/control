@@ -1,5 +1,5 @@
 Package: e1000e-dkms
-Version: 3.5.1
+Version: 3.6.0
 Section: kernel
 Priority: optional
 Architecture: all

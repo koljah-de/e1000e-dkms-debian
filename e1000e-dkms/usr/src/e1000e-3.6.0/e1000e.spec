@@ -1,6 +1,6 @@
 Name: e1000e
 Summary: Intel(R) Gigabit Ethernet Connection
-Version: 3.5.1
+Version: 3.6.0
 Release: 1
 Source: %{name}-%{version}.tar.gz
 Vendor: Intel Corporation
@@ -33,7 +33,7 @@ make -C src clean
 make -C src
 
 %install
-make -C src INSTALL_MOD_PATH=%{buildroot} MANDIR=%{_mandir} install
+make -C src INSTALL_MOD_PATH=%{buildroot} MANDIR=%{_mandir} rpm
 # Append .new to driver name to avoid conflict with kernel RPM
 cd %{buildroot}
 find lib -name "e1000e.*o" -exec mv {} {}.new \; \

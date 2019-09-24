@@ -250,7 +250,7 @@ static s32 e1000_init_mac_params_82571(struct e1000_hw *hw)
 		 * enabled.
 		 */
 		mac->arc_subsystem_valid = !!(er32(FWSM) &
-					      E1000_FWSM_MODE_MASK);
+					       E1000_FWSM_MODE_MASK);
 		break;
 	case e1000_82574:
 	case e1000_82583:

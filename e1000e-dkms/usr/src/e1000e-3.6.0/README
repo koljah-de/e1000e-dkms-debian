@@ -58,11 +58,8 @@ perform the following:
   or SuSE's yast2.
 
 
-================================================================================
-
-
 Building and Installation
--------------------------
+=========================
 To build a binary RPM* package of this driver, run 'rpmbuild -tb
 e1000e-<x.x.x>.tar.gz', where <x.x.x> is the version number for the driver tar
 file.
@@ -83,14 +80,18 @@ Note: RPM functionality has only been tested in Red Hat distributions.
 
 2. Untar/unzip the archive, where <x.x.x> is the version number for the
    driver tar file:
-   tar zxf e1000e-<x.x.x>.tar.gz
+
+   # tar zxf e1000e-<x.x.x>.tar.gz
 
 3. Change to the driver src directory, where <x.x.x> is the version number
    for the driver tar:
-   cd e1000e-<x.x.x>/src/
+
+   # cd e1000e-<x.x.x>/src/
 
 4. Compile the driver module:
+
    # make install
+
    The binary will be installed as:
    /lib/modules/<KERNEL
 VERSION>/updates/drivers/net/ethernet/intel/e1000e/e1000e.ko
@@ -99,45 +100,48 @@ VERSION>/updates/drivers/net/ethernet/intel/e1000e/e1000e.ko
    for various Linux distributions.
 
 5. Load the module using the modprobe command:
-   modprobe <e1000e> [parameter=port1_value,port2_value]
+
+   # modprobe <e1000e> [parameter=port1_value,port2_value]
 
    Make sure that any older e1000e drivers are removed from the kernel before
    loading the new module:
-   rmmod e1000e; modprobe e1000e
+
+   # rmmod e1000e; modprobe e1000e
 
 6. Assign an IP address to the interface by entering the following,
    where ethX is the interface name that was shown in dmesg after modprobe:
-  
-   ip address add <IP_address>/<netmask bits> dev ethX
+
+   # ip address add <IP_address>/<netmask bits> dev ethX
 
 7. Verify that the interface works. Enter the following, where IP_address
    is the IP address for another machine on the same subnet as the interface
    that is being tested:
-   ping <IP_address>
+
+   # ping <IP_address>
 
 Note: For certain distributions like (but not limited to) RedHat Enterprise
 Linux 7 and Ubuntu, once the driver is installed the initrd/initramfs file may
 need to be updated to prevent the OS loading old versions of the e1000e driver.
 The dracut utility may be used on RedHat distributions:
 	# dracut --force
+
    For Ubuntu:
 	# update-initramfs -u
 
 
-================================================================================
-
-
 Command Line Parameters
------------------------
+=======================
 If the driver is built as a module, the following optional parameters are used
 by entering them on the command line with the modprobe command using this
 syntax:
-modprobe e1000e [<option>=<VAL1>,<VAL2>,...]
+
+# modprobe e1000e [<option>=<VAL1>,<VAL2>,...]
 
 There needs to be a <VAL#> for each network port in the system supported by
 this driver. The values will be applied to each instance, in function order.
 For example:
-modprobe e1000e InterruptThrottleRate=16000,16000
+
+# modprobe e1000e InterruptThrottleRate=16000,16000
 
 In this case, there are two network ports supported by e1000e in the system.
 The default value for each parameter is generally the recommended setting,
@@ -236,9 +240,9 @@ This parameter differs from other parameters because it is a single (not 1,1,1
 etc.) parameter applied to all driver instances and it is also available
 during runtime at /sys/module/e1000e/parameters/copybreak.
 
-To use copybreak, type
+To use copybreak, type:
 
-  modprobe e1000e.ko copybreak=128
+# modprobe e1000e.ko copybreak=128
 
 
 SmartPowerDownEnable
@@ -278,6 +282,7 @@ EEE (Energy Efficient Ethernet)
 Valid Range: 0-1
 0 = Disables EEE
 1 = Enables EEE
+
 A link between two EEE-compliant devices will result in periodic bursts of data
 followed by periods where the link is in an idle state. This Low Power Idle
 (LPI) state is supported at 1 Gbps and 100 Mbps link speeds.
@@ -289,8 +294,9 @@ NOTES:
 speeds.
 
 Example:
-ethtool --show-eee devname
-ethtool --set-eee devname [eee on|off]
+
+# ethtool --show-eee devname
+# ethtool --set-eee devname [eee on|off]
 
 
 Node
@@ -308,11 +314,8 @@ interrupt time could run on a different core than where the memory is
 allocated causing slower memory access and impacting throughput, CPU, or both.
 
 
-================================================================================
-
-
 Additional Features and Configurations
--------------------------------------------
+======================================
 
 IEEE 1588 Precision Time Protocol (PTP) Hardware Clock (PHC)
 ------------------------------------------------------------
@@ -342,9 +345,9 @@ or module name, the name for the Base Driver is e1000e.
 For example, if you install the e1000e driver for two adapters (eth0 and eth1)
 and want to set the interrupt mode to MSI-X and MSI, respectively, add the
 following to modules.conf or /etc/modprobe.conf:
-alias eth0 e1000e
-alias eth1 e1000e
-options e1000e InterruptThrottleRate=3,1
+  alias eth0 e1000e
+  alias eth1 e1000e
+  options e1000e InterruptThrottleRate=3,1
 
 
 Viewing Link Messages
@@ -352,7 +355,8 @@ Viewing Link Messages
 Link messages will not be displayed to the console if the distribution is
 restricting system messages. In order to see network driver link messages on
 your console, set dmesg to eight by entering the following:
-dmesg -n 8
+
+# dmesg -n 8
 
 NOTE: This setting is not saved across reboots.
 
@@ -365,15 +369,18 @@ to a value larger than the default value of 1500.
 Use the ifconfig command to increase the MTU size. For example, enter the
 following where X is the interface number:
 
-   ifconfig ethX mtu 9000 up
+# ifconfig ethX mtu 9000 up
+
 Alternatively, you can use the ip command as follows:
-   ip link set mtu 9000 dev ethX
-   ip link set up dev ethX
+
+# ip link set mtu 9000 dev ethX
+# ip link set up dev ethX
 
 This setting is not saved across reboots. The setting change can be made
-permanent by adding 'MTU=9000' to the file:
-/etc/sysconfig/network-scripts/ifcfg-ethX for RHEL or to the file
-/etc/sysconfig/network/<config_file> for SLES.
+permanent by adding 'MTU=9000' to the following file:
+  /etc/sysconfig/network-scripts/ifcfg-ethX for RHEL
+      or
+  /etc/sysconfig/network/<config_file> for SLES
 
 NOTE: The maximum MTU setting for Jumbo Frames is 8996. This value coincides
 with the maximum Jumbo Frames size of 9018 bytes.
@@ -445,7 +452,8 @@ following website:
    https://kernel.org/pub/software/network/ethtool/
 
 To see the speed configurations your device supports, run the following:
-   ethtool ethX
+
+# ethtool ethX
 
 Caution: Only experienced network administrators should force speed and duplex
 or change autonegotiation advertising manually. The settings at the switch must
@@ -490,9 +498,6 @@ For more information on NAPI, see
 https://www.linuxfoundation.org/collaborate/workgroups/networking/napi
 
 
-================================================================================
-
-
 Known Issues/Troubleshooting
 ============================
 
@@ -527,7 +532,7 @@ should use an OS that fully supports Message Signaled Interrupts (MSI) and make
 sure that MSI is enabled in your system's BIOS.
 
 
-Adapters with 4 ports Behind a PCIe bridge
+Adapters with 4 Ports Behind a PCIe Bridge
 ------------------------------------------
 Adapters that have 4 ports behind a PCIe bridge may be incompatible with some
 systems. The user should run the Linux firmware kit from
@@ -546,6 +551,7 @@ released with the feature disabled in the EEPROM.
 
 If you encounter the problem in an adapter, and the chipset is an 82573-based
 one, you can verify that your adapter needs the fix by using ethtool:
+
  # ethtool -e eth0
 
 Offset	Values
@@ -569,7 +575,7 @@ Example output of the script:
 # bash fixeep-82573-dspd.sh eth0
 eth0: is a "82573E Gigabit Ethernet Controller"
 This fixup is applicable to your hardware executing command:
-ethtool -E eth0 magic 0x109a8086 offset 0x1e value 0xdf
+# ethtool -E eth0 magic 0x109a8086 offset 0x1e value 0xdf
 Change made. You *MUST* reboot your machine before changes take effect!
 The script can be downloaded at
 http://e1000.sourceforge.net/files/fixeep-82573-dspd.sh.
@@ -591,12 +597,12 @@ may occur: "Linux kernel source not configured - missing version.h"
 
 To solve this issue, create the version.h file by going to the Linux source
 tree and entering:
+
 # make include/linux/version.h
 
 
 Performance Degradation with Jumbo Frames
 -----------------------------------------
-
 Degradation in throughput performance may be observed in some Jumbo frames
 environments. If this is observed, increasing the application's socket buffer
 size and/or increasing the /proc/sys/net/ipv4/tcp_*mem entry values may help.
@@ -611,7 +617,7 @@ There is a known issue using Jumbo frames when connected to a Foundry BigIron
 packets, lower the MTU size.
 
 
-Allocating Rx Buffers when Using Jumbo Frames
+Allocating Rx Buffers When Using Jumbo Frames
 ---------------------------------------------
 Allocating Rx buffers when using Jumbo Frames on 2.6.x kernels may fail if the
 available memory is heavily fragmented. This issue may be seen with PCI-X
@@ -629,15 +635,17 @@ for any IP address assigned to the system. This results in unbalanced receive
 traffic.
 
 If you have multiple interfaces in a server, either turn on ARP filtering by
-entering:
-echo 1 > /proc/sys/net/ipv4/conf/all/arp_filter
+entering the following:
+
+# echo 1 > /proc/sys/net/ipv4/conf/all/arp_filter
 
 This only works if your kernel's version is higher than 2.4.5.
 
 
 NOTE: This setting is not saved across reboots. The configuration change can be
 made permanent by adding the following line to the file /etc/sysctl.conf:
-net.ipv4.conf.all.arp_filter = 1
+
+  net.ipv4.conf.all.arp_filter = 1
 
 Another alternative is to install the interfaces in separate broadcast domains
 (either in different switches or in a switch partitioned to VLANs).
@@ -647,7 +655,8 @@ Disable rx Flow Control with ethtool
 ------------------------------------
 In order to disable receive flow control using ethtool, you must turn off
 auto-negotiation on the same command line:
-ethtool -A eth? autoneg off rx off
+
+# ethtool -A ethX autoneg off rx off
 
 
 Unplugging Network Cable While ethtool -p is Running
@@ -670,8 +679,8 @@ kernel.
 Rx Page Allocation Errors
 -------------------------
 'Page allocation failure. order:0' errors may occur under stress. with kernels
-2.6.25 and newer.
-This is caused by the way the Linux kernel reports this stressed condition.
+2.6.25 and newer. This is caused by the way the Linux kernel reports this
+stressed condition.
 
 Network Throughput Degradation Observed with Onboard Video Versus Add-in Video
 Card on 82579LM Gigabit Network Connection When Used with Some Older Kernels
@@ -722,11 +731,8 @@ packet buffer sizes and relevant flow control settings are modified
 accordingly.
 
 
-================================================================================
-
-
 Customer Support
-----------------
+================
 
 For general information, go to the Intel support website at:
 http://www.intel.com/support/
@@ -740,7 +746,7 @@ issue to e1000-devel@lists.sf.net.
 
 
 License
--------
+=======
 This program is free software; you can redistribute it and/or modify it under
 the terms and conditions of the GNU General Public License, version 2, as
 published by the Free Software Foundation.
@@ -757,8 +763,10 @@ The full GNU General Public License is included in this distribution in the
 file called "COPYING".
 
 Copyright(c) 1999 - 2019 Intel Corporation.
+
+
 Trademarks
-----------
+==========
 Intel and Itanium are trademarks or registered trademarks of Intel Corporation
 or its subsidiaries in the United States and/or other countries.
 

@@ -225,6 +225,7 @@
 #define E1000_STATUS_2P5_SKU		0x00001000	/* Val of 2.5GBE SKU strap */
 #define E1000_STATUS_2P5_SKU_OVER	0x00002000	/* Val of 2.5GBE SKU Over */
 #define E1000_STATUS_PCIM_STATE		0x40000000	/* PCIm function state */
+#define PCIM_DMOFF_EXIT_TIMEOUT 100
 
 #define SPEED_2500	2500
 #define HALF_DUPLEX	1

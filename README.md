@@ -6,6 +6,24 @@ This is a Debian DKMS package version of the latest code of Intels e1000e ethern
 
 ---
 
+## Update
+**Kernel 5.4**
+
+According to this post https://lore.kernel.org/linux-acpi/20190827095620.11213-1-kw@linux.com/ definitions and functions from *linux/pci-aspm.h* have been merged into *linux/pci.h*.
+
+To install the e1000e DKMS driver with Kernel 5.4.x you have to change the following line in */usr/src/e1000e-3.6.0/src/kcompat.h*:
+```
+line:command
+2799:#include <linux/pci-aspm.h>
+```
+to
+```
+line:command
+2799:#include <linux/pci.h>
+```
+
+---
+
 ## Prerequisites
 **Dependency:** dkms
 

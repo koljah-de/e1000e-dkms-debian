@@ -6,24 +6,6 @@ This is a Debian DKMS package version of the latest code of Intels e1000e ethern
 
 ---
 
-## Update
-**Kernel 5.4**
-
-According to this post https://lore.kernel.org/linux-acpi/20190827095620.11213-1-kw@linux.com/ definitions and functions from *linux/pci-aspm.h* have been merged into *linux/pci.h*.
-
-To install the e1000e DKMS driver with Kernel 5.4.x you have to change the following line in */usr/src/e1000e-3.6.0/src/kcompat.h*:
-```
-line:command
-2799:#include <linux/pci-aspm.h>
-```
-to
-```
-line:command
-2799:#include <linux/pci.h>
-```
-
----
-
 ## Prerequisites
 **Dependency:** dkms
 
@@ -80,6 +62,28 @@ For further information visit:
 ---
 
 ## Changelog
+
+**Changelog for 3.8.4**
+
+* Added a fix to s0ix flow to support cable connected case
+* Initial support for the following devices:
+  * Ethernet Connection (13) I219-LM
+  * Ethernet Connection (13) I219-V
+  * Ethernet Connection (14) I219-LM
+  * Ethernet Connection (14) I219-V
+  * Ethernet Connection (15) I219-LM
+  * Ethernet Connection (15) I219-V
+  * Ethernet Connection (16) I219-LM
+  * Ethernet Connection (16) I219-V
+  * Ethernet Connection (17) I219-LM
+  * Ethernet Connection (17) I219-V
+* Backport to upstream: 0290bd291c (netdev: pass the stuck queue to the timeout handle)
+* Backport to upstream: b0ddfe2bb2 (intel: correct return from set features callback)
+* Backport to upstream: ee2e80c194 (e1000e: Use dev_get_drvdata where possible)
+* Backport to upstream: a702381940 (e1000e: Use rtnl_lock to prevent race conditions between net and pci/pm)
+* Backport to upstream: daee5598e4 (e1000e: Drop unnecessary __E1000_DOWN bit twiddling)
+* Backport to upstream: 12299132b3 (net: ethernet: intel: Demote MTU change prints to debug)
+* Backport to upstream: c557a4b3f7 (e1000e: Use netdev_info instead of pr_info for link messages)
 
 **Changelog for 3.6.0**
 * Added support to S0ix system state

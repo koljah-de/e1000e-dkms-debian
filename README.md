@@ -20,7 +20,7 @@ apt install linux-headers-$(uname -r) dkms build-essential
 
 To install the deb package run:
 ```
-dpkg -i e1000e-dkms_<x.x.x.x>_all.deb
+dpkg -i e1000e-dkms_<x.x.x>_all.deb
 ```
 
 To remove the driver run:
@@ -39,15 +39,15 @@ dpkg-deb --build e1000e-dkms
 
 If you want to use the DKMS kernel module only (works with all Linux distributions) run:
 ```
-cp -r e1000e-dkms/usr/src/e1000e-<x.x.x.x> /usr/src/
-dkms add -m e1000e -v <x.x.x.x>
-dkms build -m e1000e -v <x.x.x.x>
-dkms install -m e1000e -v <x.x.x.x>
+cp -r e1000e-dkms/usr/src/e1000e-<x.x.x> /usr/src/
+dkms add -m e1000e -v <x.x.x>
+dkms build -m e1000e -v <x.x.x>
+dkms install -m e1000e -v <x.x.x>
 ```
 
 To remove the DKMS kernel module only (works with all Linux distributions) run:
 ```
-dkms remove -m e1000e -v <x.x.x.x> --all
+dkms remove -m e1000e -v <x.x.x> --all
 ```
 
 ---
@@ -63,8 +63,12 @@ For further information visit:
 
 ## Changelog
 
-**Changelog for 3.8.4**
+**Changelog for 3.8.7**
+* Fixed compilation on latest kernels after changes in Linux OS API
+* Backport to upstream: 98942d7053 (e1000e: extend PTP gettime function to read system clock)
+* Backport to upstream: 59f58708c504 (e1000e: Exclude device from suspend direct complete optimization)
 
+**Changelog for 3.8.4**
 * Added a fix to s0ix flow to support cable connected case
 * Initial support for the following devices:
   * Ethernet Connection (13) I219-LM

@@ -2775,6 +2775,9 @@ static int e1000e_get_ts_info(struct net_device *netdev,
 #endif /* ETHTOOL_GET_TS_INFO */
 
 static const struct ethtool_ops e1000_ethtool_ops = {
+#ifdef ETHTOOL_COALESCE_USECS
+	.supported_coalesce_params = ETHTOOL_COALESCE_USECS,
+#endif /* ETHTOOL_COALESCE_USECS */
 #ifndef HAVE_ETHTOOL_CONVERT_U32_AND_LINK_MODE
 	.get_settings		= e1000_get_settings,
 	.set_settings		= e1000_set_settings,

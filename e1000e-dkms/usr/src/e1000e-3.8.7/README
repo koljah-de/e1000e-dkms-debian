@@ -419,21 +419,21 @@ permanent by adding 'MTU=9000' to the following file:
       or
   /etc/sysconfig/network/<config_file> for SLES
 
-NOTE: The maximum MTU setting for Jumbo Frames is 8996. This value coincides
-with the maximum Jumbo Frames size of 9018 bytes.
+NOTE: The maximum MTU setting for jumbo frames is 8996. This corresponds to the
+maximum jumbo frame size of 9018 bytes.
 
-NOTE: Using Jumbo frames at 10 or 100 Mbps is not supported and may result in
+NOTE: Using jumbo frames at 10 or 100 Mbps is not supported and may result in
 poor performance or loss of link.
 
 NOTE: Packet loss may have a greater impact on throughput when you use jumbo
 frames. If you observe a drop in performance after enabling jumbo frames,
 enabling flow control may mitigate the issue.
 
-NOTE: The following adapters limit Jumbo Frames sized packets to a maximum of
+NOTE: The following adapters limit jumbo frames sized packets to a maximum of
 4088 bytes:
   - Intel(R) 82578DM Gigabit Network Connection
   - Intel(R) 82577LM Gigabit Network Connection
-- The following adapters do not support Jumbo Frames:
+- The following adapters do not support jumbo frames:
   - Intel(R) PRO/1000 Gigabit Server Adapter
   - Intel(R) PRO/1000 PM Network Connection
   - Intel(R) 82562G 10/100 Network Connection
@@ -450,7 +450,7 @@ NOTE: The following adapters limit Jumbo Frames sized packets to a maximum of
   - Intel(R) 82567V-3 Gigabit Network Connection
   - Intel(R) 82577LC Gigabit Network Connection
   - Intel(R) 82578DC Gigabit Network Connection
-- Jumbo Frames cannot be configured on an 82579-based Network device if
+- Jumbo frames cannot be configured on an 82579-based Network device if
   MACSec is enabled on the system.
 
 
@@ -574,16 +574,16 @@ http://www.linuxfirmwarekit.org/ to test their BIOS, if they have interrupt or
 82573(V/L/E) TX Unit Hang Messages
 ----------------------------------
 Several adapters with the 82573 chipset display "TX unit hang" messages during
-normal operation with the e1000edriver. The issue appears both with TSO enabled
-and disabled and is caused by a power management function that is enabled in
-the EEPROM. Early releases of the chipsets to vendors had the EEPROM bit that
-enabled the feature. After the issue was discovered newer adapters were
-released with the feature disabled in the EEPROM.
+normal operation with the e1000e driver. The issue appears both with TSO
+enabled and disabled and is caused by a power management function that is
+enabled in the EEPROM. Early releases of the chipsets to vendors had the EEPROM
+bit that enabled the feature. After the issue was discovered newer adapters
+were released with the feature disabled in the EEPROM.
 
 If you encounter the problem in an adapter, and the chipset is an 82573-based
 one, you can verify that your adapter needs the fix by using ethtool:
 
- # ethtool -e eth0
+ # ethtool -e <ethX>
 
 Offset	Values
 ------	------
@@ -614,7 +614,6 @@ http://e1000.sourceforge.net/files/fixeep-82573-dspd.sh.
 
 Dropped Receive Packets on Half-duplex 10/100 Networks
 ------------------------------------------------------
-
 If you have an Intel PCI Express adapter running at 10mbps or 100mbps,
 half-duplex, you may observe occasional dropped receive packets. There are no
 workarounds for this problem in this network configuration. The network must be

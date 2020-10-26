@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME=e1000e
-VERSION=3.8.4
+VERSION=3.8.7
 
 set -e
 

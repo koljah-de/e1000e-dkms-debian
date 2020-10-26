@@ -590,6 +590,8 @@ extern const struct e1000_info e1000_es2_info;
 #ifdef HAVE_PTP_1588_CLOCK
 void e1000e_ptp_init(struct e1000_adapter *adapter);
 void e1000e_ptp_remove(struct e1000_adapter *adapter);
+u64 e1000e_read_systim(struct e1000_adapter *adapter,
+		       struct ptp_system_timestamp *sts);
 #else
 #define e1000e_ptp_init(adapter) do {} while (0)
 #define e1000e_ptp_remove(adapter) do {} while (0)

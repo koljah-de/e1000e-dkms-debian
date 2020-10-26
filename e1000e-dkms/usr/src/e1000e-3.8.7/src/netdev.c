@@ -35,7 +35,7 @@
 #define DRV_EXTRAVERSION ""
 #endif
 
-#define DRV_VERSION "3.8.4" DRV_EXTRAVERSION
+#define DRV_VERSION "3.8.7" DRV_EXTRAVERSION
 char e1000e_driver_name[] = "e1000e";
 const char e1000e_driver_version[] = DRV_VERSION;
 
@@ -3711,7 +3711,7 @@ static void e1000_configure_rx(struct e1000_adapter *adapter)
 			ew32(RXDCTL(0), rxdctl | 0x3);
 		}
 #ifdef HAVE_PM_QOS_REQUEST_LIST_NEW
-		pm_qos_update_request(&adapter->pm_qos_req, lat);
+		cpu_latency_qos_update_request(&adapter->pm_qos_req, lat);
 #elif defined(HAVE_PM_QOS_REQUEST_LIST)
 		pm_qos_update_request(&adapter->pm_qos_req, lat);
 #else
@@ -3720,8 +3720,8 @@ static void e1000_configure_rx(struct e1000_adapter *adapter)
 #endif
 	} else {
 #ifdef HAVE_PM_QOS_REQUEST_LIST_NEW
-		pm_qos_update_request(&adapter->pm_qos_req,
-				      PM_QOS_DEFAULT_VALUE);
+		cpu_latency_qos_update_request(&adapter->pm_qos_req,
+					       PM_QOS_DEFAULT_VALUE);
 #elif defined(HAVE_PM_QOS_REQUEST_LIST)
 		pm_qos_update_request(&adapter->pm_qos_req,
 				      PM_QOS_DEFAULT_VALUE);
@@ -4876,13 +4876,17 @@ void e1000e_reinit_locked(struct e1000_adapter *adapter)
 /**
  * e1000e_sanitize_systim - sanitize raw cycle counter reads
  * @hw: pointer to the HW structure
- * @systim: time value read, sanitized and returned
+ * @systim: PHC time value read, sanitized and returned
+ * @sts: structure to hold system time before and after reading SYSTIML,
+ * may be NULL
  *
  * Errata for 82574/82583 possible bad bits read from SYSTIMH/L:
  * check to see that the time is incrementing at a reasonable
  * rate and is a multiple of incvalue.
  **/
-static u64 e1000e_sanitize_systim(struct e1000_hw *hw, u64 systim)
+
+static u64 e1000e_sanitize_systim(struct e1000_hw *hw, u64 systim,
+				  struct ptp_system_timestamp *sts)
 {
 	u64 time_delta, rem, temp;
 	u64 systim_next;
@@ -4892,7 +4896,9 @@ static u64 e1000e_sanitize_systim(struct e1000_hw *hw, u64 systim)
 	incvalue = er32(TIMINCA) & E1000_TIMINCA_INCVALUE_MASK;
 	for (i = 0; i < E1000_MAX_82574_SYSTIM_REREADS; i++) {
 		/* latch SYSTIMH on read of SYSTIML */
+		ptp_read_system_prets(sts);
 		systim_next = (u64)er32(SYSTIML);
+		ptp_read_system_postts(sts);
 		systim_next |= (u64)er32(SYSTIMH) << 32;
 
 		time_delta = systim_next - systim;
@@ -4912,15 +4918,17 @@ static u64 e1000e_sanitize_systim(struct e1000_hw *hw, u64 systim)
 
 #ifdef HAVE_HW_TIME_STAMP
 /**
- * e1000e_cyclecounter_read - read raw cycle counter (used by time counter)
- * @cc: cyclecounter structure
+ * e1000e_read_systim - read SYSTIM register
+ * @adapter: board private structure
+ * @sts: structure which will contain system time before and after reading
+ * SYSTIML, may be NULL
  **/
-static u64 e1000e_cyclecounter_read(const struct cyclecounter *cc)
+
+u64 e1000e_read_systim(struct e1000_adapter *adapter,
+		       struct ptp_system_timestamp *sts)
 {
-	struct e1000_adapter *adapter = container_of(cc, struct e1000_adapter,
-						     cc);
 	struct e1000_hw *hw = &adapter->hw;
-	u32 systimel, systimeh;
+	u32 systimel, systimel_2, systimeh;
 	u64 systim;
 	/* SYSTIMH latching upon SYSTIML read does not work well.
 	 * This means that if SYSTIML overflows after we read it but before
@@ -4928,11 +4936,15 @@ static u64 e1000e_cyclecounter_read(const struct cyclecounter *cc)
 	 * will experience a huge non linear increment in the systime value
 	 * to fix that we test for overflow and if true, we re-read systime.
 	 */
+	ptp_read_system_prets(sts);
 	systimel = er32(SYSTIML);
+	ptp_read_system_postts(sts);
 	systimeh = er32(SYSTIMH);
 	/* Is systimel is so large that overflow is possible? */
 	if (systimel >= (u32)0xffffffff - E1000_TIMINCA_INCVALUE_MASK) {
-		u32 systimel_2 = er32(SYSTIML);
+		ptp_read_system_prets(sts);
+		systimel_2 = er32(SYSTIML);
+		ptp_read_system_postts(sts);
 		if (systimel > systimel_2) {
 			/* There was an overflow, read again SYSTIMH, and use
 			 * systimel_2
@@ -4945,9 +4957,20 @@ static u64 e1000e_cyclecounter_read(const struct cyclecounter *cc)
 	systim |= (u64)systimeh << 32;
 
 	if (adapter->flags2 & FLAG2_CHECK_SYSTIM_OVERFLOW)
-		systim = e1000e_sanitize_systim(hw, systim);
+		systim = e1000e_sanitize_systim(hw, systim, sts);
 
 	return systim;
+}
+
+/**
+ * e1000e_cyclecounter_read - read raw cycle counter (user by time counter)
+ * @cc: cyclecounter structre
+ **/
+static u64 e1000e_cyclecounter_read(const struct cyclecounter *cc)
+{
+	struct e1000_adapter *adapter = container_of(cc, struct e1000_adapter,
+						     cc);
+	return e1000e_read_systim(adapter, NULL);
 }
 #endif /* HAVE_HW_TIME_STAMP */
 
@@ -5186,8 +5209,7 @@ int e1000e_open(struct net_device *netdev)
 #endif
 	/* DMA latency requirement to workaround jumbo issue */
 #ifdef HAVE_PM_QOS_REQUEST_LIST_NEW
-	pm_qos_add_request(&adapter->pm_qos_req, PM_QOS_CPU_DMA_LATENCY,
-			   PM_QOS_DEFAULT_VALUE);
+	cpu_latency_qos_add_request(&adapter->pm_qos_req, PM_QOS_DEFAULT_VALUE);
 #elif defined(HAVE_PM_QOS_REQUEST_LIST)
 	pm_qos_add_request(&adapter->pm_qos_req, PM_QOS_CPU_DMA_LATENCY,
 			   PM_QOS_DEFAULT_VALUE);
@@ -5240,7 +5262,7 @@ int e1000e_open(struct net_device *netdev)
 
 err_req_irq:
 #ifdef HAVE_PM_QOS_REQUEST_LIST_NEW
-	pm_qos_remove_request(&adapter->pm_qos_req);
+	cpu_latency_qos_remove_request(&adapter->pm_qos_req);
 #elif defined(HAVE_PM_QOS_REQUEST_LIST)
 	pm_qos_remove_request(&adapter->pm_qos_req);
 #else
@@ -5327,7 +5349,7 @@ int e1000e_close(struct net_device *netdev)
 		e1000e_release_hw_control(adapter);
 
 #ifdef HAVE_PM_QOS_REQUEST_LIST_NEW
-	pm_qos_remove_request(&adapter->pm_qos_req);
+	cpu_latency_qos_remove_request(&adapter->pm_qos_req);
 #elif defined(HAVE_PM_QOS_REQUEST_LIST)
 	pm_qos_remove_request(&adapter->pm_qos_req);
 #else
@@ -8096,8 +8118,6 @@ static pci_ers_result_t e1000_io_slot_reset(struct pci_dev *pdev)
 		ew32(WUS, ~0);
 		result = PCI_ERS_RESULT_RECOVERED;
 	}
-
-	pci_cleanup_aer_uncorrect_error_status(pdev);
 
 	return result;
 }

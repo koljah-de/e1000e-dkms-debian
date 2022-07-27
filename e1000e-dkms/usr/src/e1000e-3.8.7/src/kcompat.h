@@ -7134,7 +7134,9 @@ devlink_flash_update_status_notify(struct devlink __always_unused *devlink,
 /*****************************************************************************/
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(5,4,0))
 #if (!(RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(8,2)) && \
-     !(SLE_VERSION_CODE >= SLE_VERSION(15,2,0)))
+     !(SLE_VERSION_CODE >= SLE_VERSION(15,2,0)) && \
+     !(UBUNTU_VERSION_CODE && LINUX_VERSION_CODE >= KERNEL_VERSION(4,15,0)))
+
 static inline unsigned int skb_frag_off(const skb_frag_t * frag)
 {
 	return frag->page_offset;
@@ -7147,7 +7149,7 @@ static inline void skb_frag_off_add(skb_frag_t * frag, int delta)
 
 #define __flow_indr_block_cb_register __tc_indr_block_cb_register
 #define __flow_indr_block_cb_unregister __tc_indr_block_cb_unregister
-#endif /* !(RHEL >= 8.2) && !(SLES >= 15sp2) */
+#endif /* !(RHEL >= 8.2) && !(SLES >= 15sp2) && !(UBUNTU >= kernel 4.15.0-157)*/
 #if (SLE_VERSION_CODE >= SLE_VERSION(15,2,0))
 #define HAVE_NDO_XSK_WAKEUP
 #endif /* SLES15sp2 */
